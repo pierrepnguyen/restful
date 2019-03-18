@@ -2,34 +2,39 @@ const Task = require('./models');
 
 module.exports = {
 
-    index: (req, res) => {
+    getAllTasks: (req, res) => {
         Task.find()
             .then (data => res.json(data))
-            .catch(err => res.json(err))
+            .catch(err => res.json(err));
     },
 
-    info: (req, res) => {
-        Task.find({_id: req.params.id})
+    getOneTask: (req, res) => {
+        const ID = req.params.id;
+        Task.find({_id:ID})
             .then(data => res.json(data))
-            .catch(err => res.json(err))
+            .catch(err => res.json(err));
     },
 
-    news: (req, res) => {
-        Task.create({title: req.body.title, description: req.body.description, completed: req.body.completed})
+    createTask: (req, res) => {
+        const DATA = req.body;
+        Task.create(DATA)
             .then(data => res.json(data))
-            .catch(err => res.json(err))
+            .catch(err => res.json(err));
     },
 
-    remove: (req, res) => {
-        Task.findOneAndRemove({_id: req.params.id})
-            .then(data =>  res.json(data))
-            .catch(err => res.json(err))
-    },
-
-    update: (req, res) => {
-        Task.updateOne({title: req.body.title, description: req.body.description, completed: req.body.completed})
+    updateTask: (req, res) => {
+        const DATA = req.body;
+        const ID = req.params.id;
+        Task.updateOne({_id:ID}, DATA, {runValidators:true, new:true})
             .then(data => res.json(data))
-            .catch(err => res.json(err))
-    }
+            .catch(err => res.json(err));
+    },
+
+    deleteTask: (req, res) => {
+        const ID = req.params.id;
+        Task.findOneAndRemove({_id:ID})
+            .then(data => res.json(data))
+            .catch(err => res.json(err));
+    },
 
 }
