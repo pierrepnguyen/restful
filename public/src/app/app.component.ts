@@ -8,15 +8,11 @@ import { HttpService } from './http.service';
 })
 export class AppComponent implements OnInit{
   tasks: any = [];
-  task = {
-    title : '',
-    description : ''
-  };
 
   constructor(private _httpService: HttpService){}
 
   ngOnInit(){
-    this.getTaskFromService();
+    
   }
   getTaskFromService(){
     let observable = this._httpService.getAllTasks();
@@ -24,4 +20,9 @@ export class AppComponent implements OnInit{
       this.tasks = data;
     });
   }
+  buttonClick(id){
+    let task = document.getElementById(id);
+    task.style.visibility = "visible";
+  }
+
 }

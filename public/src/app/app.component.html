@@ -1,8 +1,15 @@
-<h2>Restful Task API</h2>
-<hr>
-<h2>All the tasks:</h2>
-<ul *ngFor='let task of tasks'>
-  <li>
-    <p>{{task.title}} || {{task.description}}</p>
-  </li>
-</ul>
+<div class="container">
+  <div>
+    <h2 class="center-align">Restful Tasks API</h2>
+    <hr>
+    <div class="center-align">
+      <button (click)='getTaskFromService()' 
+      class="btn waves-effect waves-light">GET ALL TASKS</button>
+    </div>
+  </div>
+</div>
+<div class="container valign-wrapper" *ngFor='let task of tasks'>
+  <p>{{task.title}}</p>
+  <p id="{{task._id}}" style="visibility:hidden">{{task.description}}</p>
+  <button (click)='buttonClick(task._id)'>SHOW</button>
+</div>
